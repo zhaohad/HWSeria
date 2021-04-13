@@ -3,8 +3,8 @@ project(HWSeria)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(HWSeriaLib)
-add_subdirectory(test)
-
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out/lib)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/out/bin)
+
+add_subdirectory(HWSeriaLib)
+add_subdirectory(test)

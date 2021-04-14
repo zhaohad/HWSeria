@@ -1,7 +1,7 @@
 #include "DataBuf.h"
 #include <cstring>
 
-_DataBuf_B::_DataBuf_B(void * v, int size) {
+_DataBuf_B::_DataBuf_B(const void * v, int size) {
     buff = new char [size];
     std::memcpy(buff, v, size);
 }

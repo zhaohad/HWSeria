@@ -1,14 +1,13 @@
 #ifndef HWSERIA_HWSERIABLE_H
 #define HWSERIA_HWSERIABLE_H
 
+#include "HWSeriaDataBuf.h"
+#include <string>
 
 class HWSeriable {
 public:
-    void writeToBuf();
-
-protected:
-    virtual void writeToBuf(int a) = 0;
-
+    virtual void writeToBuf(HWSeriaDataBuf * pBuf) = 0;
+    virtual void createFromBuf(HWSeriaDataBuf * pBuf) = 0;
 };
 
 

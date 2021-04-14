@@ -1,25 +1,53 @@
 #include <iostream>
 #include "HWSeria.h"
+#include "SubD.h"
+#include "SubSubD.h"
 #include "DataStruct.h"
+#include "HWSeriaDataBuf.h"
+#include <fstream>
 
 #include <list>
 
 int main() {
-    HWSeria hwSeria;
-    hwSeria.hello();
-    DataStruct data;
+    DataStruct dataStruct;
+    /*SubD subD;
+    SubSubD subSubD;*/
 
-    /*std::list<std::string> l;
-    l.push_back("1");
-    l.push_back("2");
-    l.push_back("3");
-    for (int size = l.size(); size > 0; --size) {
-        std::cout << l.front() << std::endl;
-        l.pop_front();
-    }*/
-    std::cout << sizeof(int) << std::endl;
-    char * a = new char [3];
-    std::cout << sizeof(char) << std::endl;
-    delete [] a;
+    HWSeriaDataBuf data;
+
+    dataStruct.writeToBuf(&data);
+    /*subD.writeToBuf(&data);
+    subSubD.writeToBuf(&data);*/
+
+    std::ofstream os("test.txt", std::ios::out | std::ios::binary);
+    const char * bytes = data.toBytes();
+    os.write(bytes, data.getBufferSize());
+    os.close();
+
+    std::ifstream is("test.txt", std::ios::in | std::ios::binary | std::ios::ate);
+    int size = is.tellg();
+    is.seekg(0, std::ios::beg);
+    char * readBytes = new char[size];
+    is.read(readBytes, size);
+    is.close();
+
+    DataStruct aDataStruct;
+    aDataStruct.tClear();
+    HWSeriaDataBuf aBuf(readBytes, size);
+    aDataStruct.createFromBuf(&aBuf);
+
+    std::cout << aDataStruct << std::endl;
+
+    /*SubD aSubD;
+    aSubD.tClear();
+    aSubD.createFromBuf(&aBuf);
+    std::cout << aSubD << std::endl;
+
+    SubSubD aSubSubD;
+    aSubSubD.tClear();
+    aSubSubD.createFromBuf(&aBuf);
+    std::cout << aSubSubD << std::endl;*/
+
+    delete [] readBytes;
     return 0;
 }

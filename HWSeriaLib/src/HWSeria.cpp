@@ -2,6 +2,6 @@
 #include <iostream>
 #include "HWSeria.h"
 
-void HWSeria::hello() {
-    std::cout << "HWSeria hello" << std::endl;
+void HWSeria::serialize(HWSeriaDataBuf * pBuf, HWSeriable *data) {
+    data->writeToBuf(pBuf);
 }

@@ -40,7 +40,7 @@ public:
     void readByte(unsigned char & v);
     void readBytes(char * v, int size);
     void readString(std::string & v);
-    const char * toBytes();
+    const void toBytes(char * buf);
     unsigned int getBufferSize();
 
 private:

@@ -20,7 +20,8 @@ int main() {
     subSubD.writeToBuf(&data);*/
 
     std::ofstream os("test.txt", std::ios::out | std::ios::binary);
-    const char * bytes = data.toBytes();
+    char * bytes = new char[data.getBufferSize()];
+    data.toBytes(bytes);
     os.write(bytes, data.getBufferSize());
     os.close();
 
@@ -49,5 +50,6 @@ int main() {
     std::cout << aSubSubD << std::endl;*/
 
     delete [] readBytes;
+    delete [] bytes;
     return 0;
 }

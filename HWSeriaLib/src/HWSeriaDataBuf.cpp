@@ -97,19 +97,13 @@ void HWSeriaDataBuf::readString(std::string &v) {
     v.assign(str);
 }
 
-const char * HWSeriaDataBuf::toBytes() {
-    if (_Buffer_Bytes) {
-        delete [] _Buffer_Bytes;
-    }
-
-    _Buffer_Bytes = new char[mBufferSize];
+const void HWSeriaDataBuf::toBytes(char * buf) {
     int start = 0;
     for (std::list<_DataBuf_B *>::iterator itor = mBuffers.begin(); itor != mBuffers.end(); ++itor) {
         int s = (*itor)->size;
-        std::memcpy((void *) (_Buffer_Bytes + start), (*itor)->buff, s);
+        std::memcpy((void *) (buf + start), (*itor)->buff, s);
         start += s;
     }
-    return _Buffer_Bytes;
 }
 
 unsigned int HWSeriaDataBuf::getBufferSize() {
